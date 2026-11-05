@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 
@@ -21,6 +21,7 @@ import {
 } from '@/features/finance/schemas';
 import { mn } from '@/i18n/mn';
 import { getErrorMessage } from '@/lib/errors';
+import { goBack } from '@/lib/navigation';
 import { CASH_KINDS, PAYMENT_METHODS, type CashKind } from '@/types/models';
 
 const f = mn.finance;
@@ -61,7 +62,7 @@ export default function NewCashTransactionScreen() {
     setError(null);
     try {
       await createTransaction.mutateAsync({ businessId: business.id, ...values });
-      router.back();
+      goBack('/finance');
     } catch (e) {
       setError(getErrorMessage(e));
     }

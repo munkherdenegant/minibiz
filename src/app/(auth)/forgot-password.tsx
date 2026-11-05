@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -23,6 +22,7 @@ import { useResendCooldown } from '@/features/auth/use-resend-cooldown';
 import { mn } from '@/i18n/mn';
 import { useAuth } from '@/lib/auth';
 import { getErrorMessage } from '@/lib/errors';
+import { goBack } from '@/lib/navigation';
 
 // Step 1: email → code is sent. Step 2: code + new password.
 export default function ForgotPasswordScreen() {
@@ -72,7 +72,7 @@ function RequestStep({ onCodeSent }: { onCodeSent: (email: string) => void }) {
       />
       <Message tone="error" text={error} />
       <Button title={mn.auth.sendCode} loading={isSubmitting} onPress={onSubmit} />
-      <TextLink label={mn.auth.backToLogin} onPress={() => router.back()} />
+      <TextLink label={mn.auth.backToLogin} onPress={() => goBack('/login')} />
     </AuthScreen>
   );
 }
@@ -122,7 +122,7 @@ function ResetStep({ email }: { email: string }) {
     // Don't leave a half-finished recovery session signed in.
     if (verified) await signOut().catch(() => {});
     setRecoveringPassword(false);
-    router.back();
+    goBack('/login');
   }
 
   async function resend() {

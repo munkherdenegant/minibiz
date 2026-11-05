@@ -50,7 +50,10 @@ export function Button({
       ) : (
         <View style={styles.content}>
           {icon && <Icon name={icon} size={20} color={v.text} />}
-          <AppText variant="subheading" style={{ color: v.text }}>
+          <AppText
+            variant="subheading"
+            numberOfLines={2}
+            style={[styles.title, { color: v.text }]}>
             {title}
           </AppText>
         </View>
@@ -65,9 +68,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     borderWidth: 1,
     paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  content: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, maxWidth: '100%' },
+  // Large system font sizes wrap long labels instead of clipping them.
+  title: { flexShrink: 1, textAlign: 'center' },
   dimmed: { opacity: 0.6 },
 });

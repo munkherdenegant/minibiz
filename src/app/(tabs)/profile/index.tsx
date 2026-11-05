@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { AppText, Button, Card, Divider, ListItem, Message, Screen } from '@/components/ui';
 import { signOut } from '@/features/auth/api';
 import { useActiveBusiness } from '@/features/business/hooks';
+import { isVipActive } from '@/features/vip/hooks';
 import { useProfile } from '@/features/profile/hooks';
 import { formatDate } from '@/i18n/format';
 import { mn } from '@/i18n/mn';
@@ -44,6 +45,17 @@ export default function ProfileScreen() {
               title={business.name}
               subtitle={mn.business.types[business.business_type]}
               onPress={() => router.push('/profile/business')}
+            />
+            <Divider />
+            <ListItem
+              icon="star"
+              title={mn.vip.menu}
+              value={
+                isVipActive(business) && business.vip_until
+                  ? mn.vip.until(formatDate(business.vip_until))
+                  : undefined
+              }
+              onPress={() => router.push('/profile/vip')}
             />
           </Card>
         </>

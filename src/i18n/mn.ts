@@ -289,6 +289,22 @@ export const mn = {
     voidConfirmTitle: 'Бүртгэлийг хүчингүй болгох уу?',
     voidConfirmText: 'Бүртгэл жагсаалтад үлдэх ч тайланд тооцогдохгүй болно.',
   },
+  vip: {
+    title: 'VIP эрх',
+    menu: 'VIP эрх авах',
+    active: 'VIP идэвхтэй',
+    inactive: 'VIP эрхгүй',
+    until: (date: string) => `${date} хүртэл хүчинтэй`,
+    pitch: 'VIP эрх авч Ashi-г бүрэн ашиглаарай.',
+    duration: (days: number) => (days % 365 === 0 ? `${days / 365} жил` : `${days} хоног`),
+    buy: 'Худалдан авах',
+    extend: 'Сунгах',
+    paid: (date: string) => `Төлбөр амжилттай. VIP ${date} хүртэл идэвхтэй боллоо.`,
+    pending:
+      'Төлбөр хараахан баталгаажаагүй байна. Төлсөн бол хэдэн минутын дараа автоматаар идэвхжинэ.',
+    notPaid: 'Төлбөр хийгдсэнгүй. Дахин оролдоно уу.',
+    wireNote: 'Төлбөрийг Wire (wire.mn) аюулгүй хуудсаар QR код эсвэл банкны аппаар хийнэ.',
+  },
   profile: {
     businessSection: 'Бизнес',
     accountSection: 'Хувийн мэдээлэл',
@@ -343,6 +359,13 @@ export const mn = {
       INVALID_AMOUNT: 'Дүн буруу байна.',
       TRANSACTION_NOT_FOUND: 'Бүртгэл олдсонгүй.',
       TRANSACTION_ALREADY_VOIDED: 'Энэ бүртгэл аль хэдийн хүчингүй болсон байна.',
+      VIP_PLAN_NOT_FOUND: 'Энэ багц одоо боломжгүй байна.',
+      VIP_PAYMENT_NOT_FOUND: 'Төлбөр олдсонгүй.',
+      WIRE_UNAVAILABLE: 'Төлбөрийн систем түр ажиллахгүй байна. Дахин оролдоно уу.',
+      WIRE_ACCOUNT_NOT_READY:
+        'Wire данс төлбөр хүлээн авахад бэлэн биш байна (оператор эсвэл хүлээн авах данс тохируулаагүй).',
+      WIRE_KEY_INVALID: 'Wire API түлхүүр буруу эсвэл хүчингүй байна.',
+      INTERNAL: 'Алдаа гарлаа. Дахин оролдоно уу.',
     } as Record<string, string>,
   },
 };

@@ -1,6 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Stack } from 'expo-router';
+import { Stack, router, useRootNavigationState } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useRef } from 'react';
 
 import { ErrorState, LoadingState } from '@/components/ui';
 import { useBusinesses } from '@/features/business/hooks';
@@ -26,6 +27,15 @@ function RootNavigator() {
   // During password recovery a session exists, but the user stays on the auth screens.
   const signedIn = !!session && !isRecoveringPassword;
   const hasBusiness = (businesses.data?.length ?? 0) > 0;
+  const navigationReady = !!useRootNavigationState()?.key;
+
+  // After sign out (or an expired session) the tabs disappear and the router would fall
+  // back to "/", which only exists inside the tabs. Send the user to login instead.
+  const wasSignedIn = useRef(signedIn);
+  useEffect(() => {
+    if (wasSignedIn.current && !signedIn && navigationReady) router.replace('/login');
+    wasSignedIn.current = signedIn;
+  }, [signedIn, navigationReady]);
 
   if (isLoading || (signedIn && businesses.isPending)) return <LoadingState />;
 

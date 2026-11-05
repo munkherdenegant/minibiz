@@ -1,4 +1,4 @@
-import { Stack, router, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 
 import type { ImageChange } from '@/components/image-field';
@@ -14,6 +14,7 @@ import {
 import { productFormValues, type ProductInput } from '@/features/products/schemas';
 import { mn } from '@/i18n/mn';
 import { getErrorMessage } from '@/lib/errors';
+import { goBack } from '@/lib/navigation';
 import { assetUrl } from '@/lib/storage';
 import type { Product } from '@/types/models';
 
@@ -50,7 +51,7 @@ function EditProductForm({ product }: { product: Product }) {
       });
       if (image) await uploadImage.mutateAsync({ product: updated, image });
       else if (image === null && updated.image_path) await removeImage.mutateAsync(updated);
-      router.back();
+      goBack({ pathname: '/products/[id]', params: { id: product.id } });
       return true;
     } catch (e) {
       setError(getErrorMessage(e));

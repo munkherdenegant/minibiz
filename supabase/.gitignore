@@ -6,3 +6,6 @@
 .env.keys
 .env.local
 .env.*.local
+
+# Edge Function secrets for local runs (WIRE_SECRET_KEY, WIRE_WEBHOOK_SECRET)
+functions/.env

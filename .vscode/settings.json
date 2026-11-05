@@ -1,0 +1,9 @@
+{
+  // Supabase Edge Functions run on Deno; the Deno extension type-checks them.
+  // The rest of the project (the Expo app) keeps using the normal TypeScript service.
+  "deno.enablePaths": ["supabase/functions"],
+  "deno.lint": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+}

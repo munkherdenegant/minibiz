@@ -414,3 +414,14 @@ enabled = true
 # formatted with uppercase keywords, indent 2, max width 180, trailing commas,
 # and column/key alignment. Set to "null" to emit raw, unformatted SQL.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
+
+# Wire (wire.mn) payments. JWTs are checked inside the functions (see _shared/supabase.ts),
+# so the gateway check is off; wire-webhook is authenticated by Wire's signature instead.
+[functions.vip-checkout]
+verify_jwt = false
+
+[functions.wire-webhook]
+verify_jwt = false
+
+[functions.wire-return]
+verify_jwt = false

@@ -35,6 +35,8 @@ export type Business = {
   timezone: string;
   allow_negative_stock: boolean;
   next_sale_number: number;
+  /** End of the paid VIP period; VIP is active while this is in the future. */
+  vip_until: string | null;
   created_by: string;
   created_at: string;
   updated_at: string;
@@ -216,3 +218,15 @@ export type Dashboard = {
   low_stock: LowStockProduct[];
   recent_sales: Sale[];
 };
+
+export type VipPlan = {
+  id: string;
+  name: string;
+  /** Whole tögrög. */
+  price: number;
+  duration_days: number;
+  sort_order: number;
+  is_active: boolean;
+};
+
+export type VipPaymentStatus = 'pending' | 'succeeded' | 'canceled' | 'failed';

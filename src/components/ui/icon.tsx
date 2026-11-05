@@ -29,6 +29,7 @@ const icons = {
   expense: { ios: 'minus.circle', android: 'remove_circle', web: 'remove_circle' },
   income: { ios: 'plus.circle', android: 'add_circle', web: 'add_circle' },
   list: { ios: 'list.bullet', android: 'list', web: 'list' },
+  star: { ios: 'star.fill', android: 'star', web: 'star' },
   warning: {
     ios: 'exclamationmark.triangle',
     android: 'warning',
