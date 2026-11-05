@@ -26,6 +26,9 @@ const icons = {
   archive: { ios: 'archivebox', android: 'archive', web: 'archive' },
   unarchive: { ios: 'arrow.uturn.backward', android: 'unarchive', web: 'unarchive' },
   info: { ios: 'info.circle', android: 'info', web: 'info' },
+  expense: { ios: 'minus.circle', android: 'remove_circle', web: 'remove_circle' },
+  income: { ios: 'plus.circle', android: 'add_circle', web: 'add_circle' },
+  list: { ios: 'list.bullet', android: 'list', web: 'list' },
   warning: {
     ios: 'exclamationmark.triangle',
     android: 'warning',

@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useActiveBusiness } from '@/features/business/hooks';
+import { financeKeys } from '@/features/finance/hooks';
 import {
   PRODUCTS_PAGE_SIZE,
   createProduct,
@@ -62,6 +63,8 @@ function useProductMutation<TVariables>(mutationFn: (variables: TVariables) => P
     onSuccess: (product) => {
       queryClient.setQueryData(productKeys.detail(product.business_id, product.id), product);
       queryClient.invalidateQueries({ queryKey: productKeys.lists(product.business_id) });
+      // Stock value, product counts and low-stock alerts on Home and Finance.
+      queryClient.invalidateQueries({ queryKey: financeKeys.all(product.business_id) });
     },
   });
 }

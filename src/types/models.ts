@@ -148,3 +148,71 @@ export type SalePayment = {
 };
 
 export type SaleWithDetails = Sale & { sale_items: SaleItem[]; sale_payments: SalePayment[] };
+
+export const CASH_KINDS = ['expense', 'income'] as const;
+
+/** Kinds the user records; `inventory_purchase` is created by stock receipts. */
+export type CashKind = (typeof CASH_KINDS)[number];
+
+export type CashCategory = {
+  id: string;
+  business_id: string;
+  kind: CashKind;
+  name: string;
+  is_default: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CashTransaction = {
+  id: string;
+  business_id: string;
+  kind: CashKind | 'inventory_purchase';
+  category_id: string | null;
+  amount: number;
+  method: PaymentMethod;
+  occurred_at: string;
+  description: string | null;
+  inventory_transaction_id: string | null;
+  voided_at: string | null;
+  voided_by: string | null;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CashTransactionWithCategory = CashTransaction & {
+  cash_categories: Pick<CashCategory, 'name'> | null;
+};
+
+/** Returned by get_financial_summary (docs/architecture.md, section 5.3). */
+export type FinancialSummary = {
+  sales_count: number;
+  revenue: number;
+  cogs: number;
+  gross_profit: number;
+  operating_expenses: number;
+  inventory_losses: number;
+  other_income: number;
+  net_profit: number;
+  cash_received: number;
+  cash_paid: number;
+  net_cash_flow: number;
+  outstanding_balances: number;
+  inventory_value: number;
+};
+
+export type LowStockProduct = Pick<
+  Product,
+  'id' | 'name' | 'unit' | 'current_stock' | 'low_stock_threshold'
+>;
+
+/** Returned by get_dashboard. */
+export type Dashboard = {
+  today: FinancialSummary;
+  active_products: number;
+  low_stock_count: number;
+  low_stock: LowStockProduct[];
+  recent_sales: Sale[];
+};

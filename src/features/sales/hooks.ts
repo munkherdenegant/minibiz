@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useActiveBusiness } from '@/features/business/hooks';
+import { financeKeys } from '@/features/finance/hooks';
 import { productKeys } from '@/features/products/hooks';
 import {
   SALES_PAGE_SIZE,
@@ -44,8 +45,8 @@ export function useSale(id: string) {
 }
 
 /**
- * Sale writes change the sale, its payments and product stock, so refresh all of
- * them (the detail query refetches with its items and payments).
+ * Sale writes change the sale, its payments, product stock and the finance figures,
+ * so refresh all of them (the detail query refetches with its items and payments).
  */
 function useSaleMutation<TVariables>(mutationFn: (variables: TVariables) => Promise<Sale>) {
   const queryClient = useQueryClient();
@@ -54,6 +55,7 @@ function useSaleMutation<TVariables>(mutationFn: (variables: TVariables) => Prom
     onSuccess: (sale) => {
       queryClient.invalidateQueries({ queryKey: saleKeys.all(sale.business_id) });
       queryClient.invalidateQueries({ queryKey: productKeys.all(sale.business_id) });
+      queryClient.invalidateQueries({ queryKey: financeKeys.all(sale.business_id) });
     },
   });
 }
